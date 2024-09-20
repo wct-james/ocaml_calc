@@ -1,0 +1,4 @@
+(executable
+ (public_name ocaml_calc)
+ (name main)
+ (libraries token lexer parser eval))
