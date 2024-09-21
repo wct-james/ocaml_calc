@@ -1,14 +1,30 @@
+let supported_operators () =
+  print_endline
+    {|
+  '+' - addition 
+  '-' - subtraction 
+  '*' - multiplication 
+  '/' - division
+  '^' - power
+  '()' - brackets
+  |}
+
 let rec loop () =
   print_string "> ";
   let maths = read_line () in
-  if maths = "q" then exit 0;
-  let tokens = Lexer.lex maths in
-  let ast, _ = Parser.parse_expr tokens in
+  match maths with
+  | "q" -> exit 0
+  | "h" ->
+      supported_operators ();
+      loop ()
+  | _ ->
+      let tokens = Lexer.lex maths in
+      let ast, _ = Parser.parse_expr tokens in
 
-  let answer = Eval.eval ast in
+      let answer = Eval.eval ast in
 
-  answer |> string_of_float |> print_endline;
-  loop ()
+      answer |> string_of_float |> print_endline;
+      loop ()
 
 let () =
   print_endline
@@ -27,5 +43,6 @@ let () =
  '----------------'  '----------------'  '----------------'  '----------------'  '----------------'   '----------------'  '----------------'  '----------------'  '----------------' 
 
  Enter some calculations!
+ Enter 'h' to view supported operators
  Enter 'q' to exit|};
   loop ()
