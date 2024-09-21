@@ -11,6 +11,8 @@ let lex str =
     | '-' :: rest -> aux (Minus :: acc) rest
     | '*' :: rest -> aux (Multiply :: acc) rest
     | '/' :: rest -> aux (Divide :: acc) rest
+    | '(' :: rest -> aux (LParen :: acc) rest
+    | ')' :: rest -> aux (RParen :: acc) rest
     | c :: rest when (c >= '0' && c <= '9') || c = '.' ->
         let num_str, remaining = take_number (c :: rest) in
         aux (Number (float_of_string num_str) :: acc) remaining

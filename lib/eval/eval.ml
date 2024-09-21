@@ -6,6 +6,7 @@ let rec eval expr =
   | Literal (Number n) -> n
   | Literal _ -> failwith "require literal number expr"
   | Unary (_, r) -> -.eval r
+  | Group exp -> eval exp
   | Binary (l, t, r) -> (
       match t with
       | Add -> eval l +. eval r

@@ -1,4 +1,11 @@
-type token = Number of float | Add | Minus | Multiply | Divide
+type token =
+  | Number of float
+  | Add
+  | Minus
+  | Multiply
+  | Divide
+  | LParen
+  | RParen
 
 (* string representation of token *)
 let dump_token t =
@@ -8,3 +15,5 @@ let dump_token t =
   | Minus -> "-"
   | Multiply -> "*"
   | Divide -> "/"
+  | LParen -> "("
+  | RParen -> ")"
