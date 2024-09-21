@@ -4,6 +4,7 @@ type token =
   | Minus
   | Multiply
   | Divide
+  | Pow
   | LParen
   | RParen
 
@@ -15,5 +16,6 @@ let dump_token t =
   | Minus -> "-"
   | Multiply -> "*"
   | Divide -> "/"
+  | Pow -> "^"
   | LParen -> "("
   | RParen -> ")"

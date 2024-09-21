@@ -13,4 +13,5 @@ let rec eval expr =
       | Minus -> eval l -. eval r
       | Multiply -> eval l *. eval r
       | Divide -> eval l /. eval r
+      | Pow -> eval l ** eval r
       | _ -> failwith "foo")

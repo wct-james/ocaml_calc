@@ -11,6 +11,7 @@ let lex str =
     | '-' :: rest -> aux (Minus :: acc) rest
     | '*' :: rest -> aux (Multiply :: acc) rest
     | '/' :: rest -> aux (Divide :: acc) rest
+    | '^' :: rest -> aux (Pow :: acc) rest
     | '(' :: rest -> aux (LParen :: acc) rest
     | ')' :: rest -> aux (RParen :: acc) rest
     | c :: rest when (c >= '0' && c <= '9') || c = '.' ->
