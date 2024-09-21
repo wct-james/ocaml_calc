@@ -33,16 +33,23 @@ let parse_expr tokens =
     match tokens with
     | Number n :: rest -> (Literal (Number n), rest)
     | Minus :: rest ->
-        let right, rest = parse_pow rest in
+        let right, rest = parse_literal rest in
         (Unary (Minus, right), rest)
     | LParen :: rest -> (
-        let sub_expr, remaining = parse_pow rest in
+        let sub_expr, remaining = parse_sum rest in
         match remaining with
         | RParen :: rest -> (Group sub_expr, rest)
         | _ -> failwith "expected right parenthesis")
     | _ -> failwith "failed on parse_literal"
-  and parse_factor tokens =
+  and parse_pow tokens =
     let left, tokens = parse_literal tokens in
+    match tokens with
+    | Pow :: rest ->
+        let right, rest = parse_pow rest in
+        (Binary (left, Pow, right), rest)
+    | _ -> (left, tokens)
+  and parse_factor tokens =
+    let left, tokens = parse_pow tokens in
     match tokens with
     | Multiply :: rest ->
         let right, rest = parse_pow rest in
@@ -55,18 +62,12 @@ let parse_expr tokens =
     let left, tokens = parse_factor tokens in
     match tokens with
     | Add :: rest ->
-        let right, rest = parse_pow rest in
+        let right, rest = parse_sum rest in
         (Binary (left, Add, right), rest)
     | Minus :: rest ->
-        let right, rest = parse_pow rest in
+        let right, rest = parse_sum rest in
         (Binary (left, Minus, right), rest)
     | _ -> (left, tokens)
-  and parse_pow tokens =
-    let left, tokens = parse_sum tokens in
-    match tokens with
-    | Pow :: rest ->
-        let right, rest = parse_pow rest in
-        (Binary (left, Pow, right), rest)
-    | _ -> (left, tokens)
   in
-  parse_pow tokens
+
+  parse_sum tokens

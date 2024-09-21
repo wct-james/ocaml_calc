@@ -18,11 +18,7 @@ let rec loop () =
       supported_operators ();
       loop ()
   | _ ->
-      let tokens = Lexer.lex maths in
-      let ast, _ = Parser.parse_expr tokens in
-
-      let answer = Eval.eval ast in
-
+      let answer = Calc.calculate maths in
       answer |> string_of_float |> print_endline;
       loop ()
 

@@ -1,0 +1,3 @@
+(library
+ (name calc)
+ (libraries token lexer parser eval))
